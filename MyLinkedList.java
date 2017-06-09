@@ -1,7 +1,49 @@
 package dataStructures;
 
 public class MyLinkedList {
-    private Node head;
+    
+	private Node head;
+	
+	/* added constructors to support car / cdr / cons list operations
+	 * 
+	 */
+	
+    public MyLinkedList() {
+	}
+    
+	public MyLinkedList(Node head) {
+		this.head = head;
+	}
+    
+    public static Object myCar(MyLinkedList list) {
+    	if (list.size() > 0) {
+    	return list.get(0);
+    	} else {
+    		return null;
+    	}
+    }
+    public static MyLinkedList myCdr(MyLinkedList list) {
+    	Node remainderHead = list.head.next;
+       	MyLinkedList remainder = new MyLinkedList(remainderHead);
+    	return remainder;
+    }
+    public static MyLinkedList myCons(Object[] args) {
+    	//create new node, set it to first arg, add it to list as head node
+    	Node headNode = new Node();
+    	headNode.val = args[0];
+    	MyLinkedList newList = new MyLinkedList(headNode);
+    	
+    	// TODO build remainder of list here in for loop
+    	Node currentLink = headNode;
+    	for (int i=1;i<args.length;i++) {
+    		Node newLink = new Node();
+    		newLink.val = args[i];
+    		currentLink.next = newLink;
+    		currentLink = newLink;
+    	}
+    	return newList;
+    }
+    
     public int size() {
           int n = 0;
           Node current = this.head;
@@ -98,6 +140,10 @@ public class MyLinkedList {
           System.out.println(list.get(0));
           System.out.println(list.get(1));
           System.out.println(list.get(2));
+          MyLinkedList secondTest;
+          String[] listPieces = {"test1", "another entry", "final entry"};
+          secondTest = MyLinkedList.myCons(listPieces);
+          System.out.println(secondTest.size());
     }
    
 }
